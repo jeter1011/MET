@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Data Table Example</title>
+  <!-- Include DataTables CSS and JS from CDN -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/scroller/2.0.4/js/dataTables.scroller.min.js"></script>
+  <!-- Add CSS rule for aligning column titles -->
+  <style>
+    .dataTables_scroll {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+    }
+
+    .dataTables_wrapper.dataTables_info {
+      display: none;
+    }
+
+    .container{
+      text-align: center;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+      margin-top: 10px;
+    }
+
+    .back-button{
+      display: inline-block;
+      padding: 8px 24px;
+      background-color: #ffffff;
+      text-decoration: none;
+      position: absolute;
+      color: #fa9c1b;
+      top: 10px;
+      left: 10px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .transfer-button{
+      display: inline-block;
+      padding: 8px 24px;
+      background-color: #ffffff;
+      text-decoration: none;
+      position: absolute;
+      color: #fa9c1b;
+      top: 10px;
+      left: 130px;
+      font-weight: bold;
+      font-size: 18px;
+
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0 auto;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: #333;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .dataTables_scrollHead {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .dataTables_scrollBody {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      max-height: calc(100vh - 150px) !important;
+      align-items: center;
+    }
+
+    .dataTables_paginate{
+      display: none;
+    }
+
+    .dataTables_length{
+      display: none;
+    }
+
+    #example {
+      left: auto !important;
+      top: 0 !important;
+      width: auto !important
+    }
+
+  </style>
+
+</head>
+<body>
+  <a href="/" class="back-button">Load Page</a>
+  <a href="/file_transfer" class="transfer-button">Download</a>
+
+
+  <div class="container">
+      <h1>Met Recipe: {{ recipe }}</h1>
+        </div>
+
+
+
+  <table id="example" class="display">
+    <thead>
+      <tr>
+        {% for col in data[0].keys() %}
+        <th>{{ col }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in data %}
+      <tr>
+        {% for val in row.values() %}
+        <td>{{ val }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Initialize DataTables plugin -->
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable({
+        scrollY: 400,
+        paging: true,
+        ordering: true,
+        order: [[ 2, 'asc' ]],
+        scroller: true,
+        scrollCollapse: true,
+        scrollX: true,
+        info: false
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My App</title>
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 70vh;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			text-align: center;
+			font-size: 18px;
+		}
+
+		.button-link {
+			display: inline-block;
+			padding: 8px 24px;
+			background-color: #fa9c1b;
+			border: 5px solid #ccc;
+			border-radius: 4px;
+			text-decoration: none;
+			color: #333;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.loading-container {
+			display: none;
+			margin-top: 20px;
+
+		}
+
+		.loading-bar {
+			justify-content: center;
+			width: 240px;
+			height: 10px;
+			background-color: #ccc;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		.loading-progress {
+			width: 0;
+			height: 100%;
+			background-color: #fa9c1b;
+		}
+	</style>
+	<script>
+		function showLoading() {
+			document.getElementById('button-container').style.display = 'none';
+			document.getElementById('loading-container').style.display = 'block';
+			var loadingProgress = document.getElementById('loading-progress');
+			var width = 0;
+			var interval = setInterval(frame, 45);
+
+			function frame() {
+				if (width >= 100) {
+					clearInterval(interval);
+				} else {
+					width++;
+					loadingProgress.style.width = width + '%';
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h1>Get Met Recipe</h1>
+		<div id="button-container">
+			<a href="/data" class="button-link" onclick="showLoading()">Load Data</a>
+		</div>
+		<div id="loading-container" class="loading-container">
+			<div class="loading-bar">
+				<div id="loading-progress" class="loading-progress"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
